@@ -7,7 +7,7 @@
     "architecture": {
         "64bit": {
             "url": "https://github.com/mateo-ki/vpn-parser/releases/download/v1.15.19/vpn-parser-1.15.19-windows-x64-setup.exe",
-            "hash": "a9355523f974333c6e6ce66d4ceba4b5f308d671e30965e236f02403f5a57743"
+            "hash": "796328cfffa932f59112f9e4a2a86f5e3965f739b715060170cf9efaeac40741"
         }
     },
     "bin": "vpn-parser.exe",
@@ -22,7 +22,11 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/mateo-ki/vpn-parser/releases/download/v$version/vpn-parser-$version-windows-x64-setup.exe"
+                "url": "https://github.com/mateo-ki/vpn-parser/releases/download/v$version/vpn-parser-$version-windows-x64-setup.exe",
+                "hash": {
+                    "url": "https://github.com/mateo-ki/vpn-parser/releases/download/v$version/sha256.txt",
+                    "regex": "([a-f0-9]{64})\\s+$basename"
+                }
             }
         }
     }
