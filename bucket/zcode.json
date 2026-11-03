@@ -1,13 +1,13 @@
 {
     "##": "上游不在 GitHub 发版，版本信息来自 zcode.z.ai 的更新清单接口（桌面端自己用的那个）：channel=1 稳定版、channel=3 预览版，某些版本会先在预览通道出现（如 3.17.1）。checkver 读该接口的稳定通道，不再抓会滞后的官网营销页；hash 取自版本级 latest.yml，上游只提供 sha512。",
-    "version": "3.16.3",
+    "version": "3.17.2",
     "description": "Z.ai 出品的 AI 编程助手桌面客户端",
     "homepage": "https://zcode.z.ai",
     "license": "Proprietary",
     "architecture": {
         "64bit": {
-            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.16.3/windows-x64/ZCode-3.16.3-win-x64.exe#/dl.7z",
-            "hash": "sha512:d77a38aaf3aa2a2453f1778c102af9931d5a188c4da7cbf8de7680a01291c79968ac139aa2f7b794e7b662a888e528cef5d8d7cfbfdc7d87e1b016c4249b8667"
+            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.17.2/windows-x64/ZCode-3.17.2-win-x64.exe#/dl.7z",
+            "hash": "sha512:de7f53354990146ff7b8a76f26575e990201a019a0af17b1808fb8ee635887e8953efc87c80386582f7b7e4f241a145cc8e27c15f1ef4a2aa482b78e3308e17d"
         }
     },
     "installer": {
