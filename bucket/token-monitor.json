@@ -1,13 +1,13 @@
 {
-    "version": "0.84.1",
+    "version": "0.85.0",
     "description": "本地优先的桌面小组件，汇总 40 余个 AI 编程工具的 Token 用量、费用与额度",
     "homepage": "https://github.com/Javis603/token-monitor",
     "license": "MIT",
     "notes": "Scoop 解包安装官方 NSIS 安装包，而不是便携单文件。请用 scoop update 升级；应用内更新会安装到 Scoop 目录之外。",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/Javis603/token-monitor/releases/download/v0.84.1/Token-Monitor-Setup-0.84.1.exe#/dl.7z",
-            "hash": "5ce81a2c917241ff659dfffee2ab636e1935bfc9d8fb137e3214c2510e8eb664",
+            "url": "https://github.com/Javis603/token-monitor/releases/download/v0.85.0/Token-Monitor-Setup-0.85.0.exe#/dl.7z",
+            "hash": "ff9380d68b060c9f3366b3c23d50951eb8172ed120e560d2422170292ccf2419",
             "pre_install": [
                 "Expand-7zipArchive \"$dir\\`$PLUGINSDIR\\app-64.7z\" \"$dir\"",
                 "Remove-Item \"$dir\\`$*\", \"$dir\\Uninstall*\" -Recurse -Force -ErrorAction SilentlyContinue"
