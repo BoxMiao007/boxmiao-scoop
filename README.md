@@ -48,6 +48,7 @@ scoop uninstall cloakbrowser
 | [DeepSeek Harness](https://www.deepseek.com/harness/) | DeepSeek 开源的 Agent 桌面应用（预览版），基于 Cordis「一切皆插件」架构 |
 | [DSH-X](https://yyh-001.github.io/DSH-X/) | DeepSeek Harness 的多开与多版本管理桌面工具，内嵌官方 Web 界面，支持 MCP 与技能扩展 |
 | [magpie](https://usemagpie.ai) | 本地 AI 网关，为 Codex、Claude Code 等编码 Agent 统一分配模型与账号，额度用尽自动切换 |
+| [NodeCloak](https://nodecloak.com) | 独立浏览器工作空间，为每个副本单独配置代理、语言与隐私选项，并启动 Claude Code、Codex、Gemini 终端 |
 | [OpenBot](https://openbot.run/) | 本地优先的持久化 AI 智能体桌面工作台，支持 Codex、Claude Code、Grok 等 Agent 协作、任务队列、文件传输与内置浏览器控制 |
 | [OpenCode Desktop](https://opencode.ai) | 开源 AI 编程智能体 OpenCode 的桌面客户端 |
 | [Token Monitor](https://github.com/Javis603/token-monitor) | 本地优先的桌面小组件，汇总 40 余个 AI 编程工具的 Token 用量、费用与额度 |

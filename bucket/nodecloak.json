@@ -1,0 +1,40 @@
+{
+    "##": "上游是 Tauri NSIS 安装包，7z 解开后包含 nodecloak.exe、proxy-core（sing-box）与卸载器。用 #/dl.7z 让 Scoop 先解包，installer.script 清理安装器残留。应用内置 Tauri updater（passive 安装模式）会把更新装到默认目录，请用 scoop update nodecloak 升级。",
+    "version": "5.0.0",
+    "description": "独立浏览器工作空间管理：为 Chrome/Edge/Firefox 副本单独配置代理、语言与隐私选项，并启动 Claude Code、Codex、Gemini 终端",
+    "homepage": "https://nodecloak.com",
+    "license": "MIT",
+    "notes": "应用内更新会以 passive 模式运行安装包并装到默认目录，可能与 Scoop 管理的版本分离；升级请用 scoop update nodecloak。",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/nodecloak/nodecloak/releases/download/v5.0.0/NodeCloak_5.0.0_windows_x64_setup.exe#/dl.7z",
+            "hash": "b8847b2b23912fdad923a5e3e62fbeeb84ba1586d8999f5e317df8bd426758e9"
+        }
+    },
+    "installer": {
+        "script": [
+            "Remove-Item -Path \"$dir\\`$PLUGINSDIR\" -Recurse -Force -ErrorAction SilentlyContinue",
+            "Remove-Item -Path \"$dir\\uninstall.exe\" -Force -ErrorAction SilentlyContinue"
+        ]
+    },
+    "shortcuts": [
+        [
+            "nodecloak.exe",
+            "NodeCloak"
+        ]
+    ],
+    "checkver": {
+        "github": "https://github.com/nodecloak/nodecloak"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/nodecloak/nodecloak/releases/download/v$version/NodeCloak_$version_windows_x64_setup.exe#/dl.7z",
+                "hash": {
+                    "url": "https://github.com/nodecloak/nodecloak/releases/download/v$version/SHA256SUMS.txt",
+                    "regex": "([a-fA-F0-9]{64})\\s+NodeCloak_$version_windows_x64_setup\\.exe"
+                }
+            }
+        }
+    }
+}
