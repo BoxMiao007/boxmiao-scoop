@@ -82,7 +82,6 @@ scoop uninstall cloakbrowser
 
 | 应用 | 说明 |
 |------|------|
-| [Pulse](https://github.com/yftx888/Pulse) | 轻量的 Windows 桌面悬浮监控：电池功耗与续航、CPU/GPU/内存占用与功耗、网速与真实延迟 |
 | [VPN Parser](https://github.com/mateo-ki/vpn-parser) | Rust + egui 编写的跨平台代理工具，采集订阅、解析节点，驱动 Mihomo/sing-box/Xray 内核实测可用性与延迟 |
 
 ## 自动更新
