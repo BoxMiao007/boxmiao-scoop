@@ -1,16 +1,16 @@
 {
-    "version": "0.19.0",
+    "version": "0.20.1",
     "description": "开源、纯 Rust 重写的 Photoshop 替代品，支持图层、蒙版、调整图层、文字与真实 PSD 文件",
     "homepage": "https://getartcraft.com/apps/photocraft",
     "license": "MIT OR Apache-2.0",
     "notes": "便携版：PhotoCraftData 目录（配置、画笔预设、崩溃恢复自动保存）已由 Scoop 持久化，升级不会丢失；删除目录里的 portable.txt 会改用 %APPDATA%\\Photocraft。当前为早期 alpha 版本。",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-windows-x64-portable.zip",
-            "hash": "b6ead3cbab9d5aee27d23cfe7903be1e820ca1e1b3f002b9970e996d9c3a38e1"
+            "url": "https://github.com/storytold/photocraft/releases/download/v0.20.1/photocraft-0.20.1-windows-x64-portable.zip",
+            "hash": "e21ac903cf0477b05d8d1b6071f1f579b80f8ee9c8737a0b47b53948a17c5c73"
         }
     },
-    "extract_dir": "photocraft-0.19.0-windows-x64-portable",
+    "extract_dir": "photocraft-0.20.1-windows-x64-portable",
     "bin": "photocraft-cli.exe",
     "shortcuts": [
         [
