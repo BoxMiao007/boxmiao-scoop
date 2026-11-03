@@ -1,0 +1,51 @@
+{
+    "##": "Zed 编辑器的简体中文重编译版。原上游 x6nux/zed-globalization 与 scoop-zedg bucket 已随账号注销失效，项目迁至 wenyinos/ZedG，清单改由本 bucket 维护。",
+    "version": "1.26.2",
+    "description": "Zed 编辑器的简体中文版，AI 自动翻译并重新编译，跟随上游版本自动更新",
+    "homepage": "https://github.com/wenyinos/ZedG",
+    "license": "GPL-3.0-only",
+    "notes": "第三方汉化重编译版，Windows 构建未签名，首次运行可能触发 SmartScreen 提示。",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/wenyinos/ZedG/releases/download/v1.26.2/zedg-zh-cn-windows-x86_64-v1.26.2.zip",
+            "hash": "e3419c05416b3215bb73fa11a7ed026ea793413d2af041195fb5823adb7bea1b"
+        },
+        "arm64": {
+            "url": "https://github.com/wenyinos/ZedG/releases/download/v1.26.2/zedg-zh-cn-windows-aarch64-v1.26.2.zip",
+            "hash": "0b524f36bcb5b3eb209360566d74f0e43320a363ccd42c20bf318b37cd9cf1d8"
+        }
+    },
+    "bin": [
+        [
+            "bin\\ZedG.exe",
+            "zedg"
+        ]
+    ],
+    "shortcuts": [
+        [
+            "ZedG.exe",
+            "ZedG"
+        ]
+    ],
+    "checkver": {
+        "github": "https://github.com/wenyinos/ZedG"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/wenyinos/ZedG/releases/download/v$version/zedg-zh-cn-windows-x86_64-v$version.zip",
+                "hash": {
+                    "url": "https://github.com/wenyinos/ZedG/releases/download/v$version/sha256sums.txt",
+                    "regex": "([a-fA-F0-9]{64})\\s+zedg-zh-cn-windows-x86_64-v$version\\.zip"
+                }
+            },
+            "arm64": {
+                "url": "https://github.com/wenyinos/ZedG/releases/download/v$version/zedg-zh-cn-windows-aarch64-v$version.zip",
+                "hash": {
+                    "url": "https://github.com/wenyinos/ZedG/releases/download/v$version/sha256sums.txt",
+                    "regex": "([a-fA-F0-9]{64})\\s+zedg-zh-cn-windows-aarch64-v$version\\.zip"
+                }
+            }
+        }
+    }
+}
