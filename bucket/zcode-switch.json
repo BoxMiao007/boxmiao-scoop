@@ -1,27 +1,19 @@
 {
-    "##": "上游自 1.7.1 起不再发布独立便携 exe，Windows 只剩 NSIS 安装包；且 1.7.1 的 checksums 里仍列着便携 exe，但该资产并未上传到 release。这里取安装包并用 #/dl.7z 让 Scoop 先解开 NSIS 外壳，installer.script 只保留主程序。",
-    "version": "1.7.1",
-    "description": "在多个 ZCode 账号之间一键切换，自动显示额度",
-    "homepage": "https://github.com/pjpv/zcode-switch",
+    "##": "官方仓库 pjpv/zcode-switch 停在 1.7.1；本清单跟随持续发版的 fork wjsqqj/zcode-switch（版本号形如 1.7.5-Z.EMAIL）。该 fork 重新提供单文件便携 exe，可直接安装，无需再解 NSIS 外壳。",
+    "version": "1.7.5-Z.EMAIL",
+    "description": "在多个 ZCode 账号之间一键切换：额度展示、活动领取与加密导入导出",
+    "homepage": "https://github.com/wjsqqj/zcode-switch",
     "license": "MIT",
     "notes": [
-        "Scoop 解包安装官方 NSIS 安装包，不注册系统安装项；账号数据仍由程序自己管理。",
-        "程序未签名，首次运行可能出现 SmartScreen 提示。",
-        "应用内更新会调用安装包装到 Scoop 目录之外，请用 scoop update zcode-switch 升级。",
+        "未签名单文件便携程序，首次运行可能出现 SmartScreen 提示。",
+        "账号数据由程序自己管理，卸载不会删除；如需彻底清理请手动删除 %LOCALAPPDATA%\\com.zswitch.app。",
         "命令行用法：zcode-switch --cli state|list|quota|switch|export|import 等，详见项目 README。"
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/pjpv/zcode-switch/releases/download/v1.7.1/zcode-switch_1.7.1_x64-setup.exe#/dl.7z",
-            "hash": "9dfe481b21da2426a7a74b5fccde0d46f24f2c4131356237fd8485a4e965701f"
+            "url": "https://github.com/wjsqqj/zcode-switch/releases/download/v1.7.5-Z.EMAIL/zcode-switch_1.7.5-Z.EMAIL_portable.exe#/zcode-switch.exe",
+            "hash": "4bab6410606e0fdd12595a7f82051e8e15628e9645d7ba88da92512feef7f45a"
         }
-    },
-    "installer": {
-        "script": [
-            "# 去掉 NSIS 外壳残留，只保留主程序",
-            "Remove-Item \"$dir\\`$PLUGINSDIR\" -Recurse -Force -ErrorAction SilentlyContinue",
-            "Remove-Item \"$dir\\uninstall.exe\" -Force -ErrorAction SilentlyContinue"
-        ]
     },
     "bin": [
         [
@@ -36,15 +28,15 @@
         ]
     ],
     "checkver": {
-        "github": "https://github.com/pjpv/zcode-switch"
+        "github": "https://github.com/wjsqqj/zcode-switch"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/pjpv/zcode-switch/releases/download/v$version/zcode-switch_$version_x64-setup.exe#/dl.7z",
+                "url": "https://github.com/wjsqqj/zcode-switch/releases/download/v$version/zcode-switch_$version_portable.exe#/zcode-switch.exe",
                 "hash": {
-                    "url": "https://github.com/pjpv/zcode-switch/releases/download/v$version/checksums-v$version.txt",
-                    "regex": "([a-fA-F0-9]{64})\\s+windows-x86_64/zcode-switch_$version_x64-setup\\.exe(?=\\r?\\n|$)"
+                    "url": "https://github.com/wjsqqj/zcode-switch/releases/download/v$version/checksums-Windows-v$version.txt",
+                    "regex": "([a-fA-F0-9]{64})\\s+\\*?zcode-switch_$version_portable\\.exe"
                 }
             }
         }

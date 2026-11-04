@@ -53,7 +53,7 @@ scoop uninstall cloakbrowser
 | [OpenCode Desktop](https://opencode.ai) | 开源 AI 编程智能体 OpenCode 的桌面客户端 |
 | [Token Monitor](https://github.com/Javis603/token-monitor) | 本地优先的桌面小组件，汇总 40 余个 AI 编程工具的 Token 用量、费用与额度 |
 | [ZCode](https://zcode.z.ai) | Z.ai 出品的 AI 编程助手桌面客户端 |
-| [zcode-switch](https://github.com/pjpv/zcode-switch) | 在多个 ZCode 账号之间一键切换，自动显示额度 |
+| [zcode-switch](https://github.com/wjsqqj/zcode-switch) | 在多个 ZCode 账号之间一键切换：额度展示、活动领取与加密导入导出 |
 
 ### 开发工具
 
