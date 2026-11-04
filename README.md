@@ -82,7 +82,7 @@ scoop uninstall cloakbrowser
 
 | 应用 | 说明 |
 |------|------|
-| [VPN Parser](https://github.com/mateo-ki/vpn-parser) | Rust + egui 编写的跨平台代理工具，采集订阅、解析节点，驱动 Mihomo/sing-box/Xray 内核实测可用性与延迟 |
+| [VProxy](https://github.com/mateo-ki/vproxy) | Rust + egui 编写的跨平台代理工作站：采集订阅、解析节点，驱动 Mihomo/sing-box/VP-Core/Xray 等六大内核实测可用性与延迟 |
 
 ## 自动更新
 
