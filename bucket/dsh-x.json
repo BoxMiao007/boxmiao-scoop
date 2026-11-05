@@ -1,14 +1,14 @@
 {
     "##": "DSH-Setup.exe 是 Rust 包装器，内部包裹完整的 Inno Setup 安装器；包装器静默安装后会自行启动应用并删除安装包，故这里切出内嵌的 Inno 引擎，带 /WEBUI=1 直接执行，安装后清掉 Inno 写入的开始菜单与卸载注册表项，由 Scoop 统一管理。",
-    "version": "0.1.22",
+    "version": "0.1.25",
     "description": "DeepSeek Harness 的多开与多版本管理桌面工具，内嵌官方 Web 界面，支持 MCP 与技能扩展",
     "homepage": "https://yyh-001.github.io/DSH-X/",
     "license": "MIT",
     "notes": "内置更新器会重新运行 DSH-Setup.exe 安装到 Scoop 目录，请改用 scoop update dsh-x 更新。用户数据保存在 %APPDATA%\\DSH，卸载不会删除。",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/yyh-001/DSH-X/releases/download/v0.1.22/DSH-Setup.exe",
-            "hash": "a4ad8a4443ac33ab5c72dcefad8056f54120fd8ac80ab1fade7f60e8730c0cb5"
+            "url": "https://github.com/yyh-001/DSH-X/releases/download/v0.1.25/DSH-Setup.exe",
+            "hash": "415b16a6001356de3178ad7429b9fdd5538ceb7e959fbd099a986cf2839b6f4b"
         }
     },
     "installer": {
