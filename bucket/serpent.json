@@ -1,13 +1,13 @@
 {
-    "version": "0.3.4",
+    "version": "0.3.5",
     "description": "开源跨平台数字资产管理软件，面向游戏美术、影视后期与平面/动态图形设计",
     "homepage": "https://serpent.dolag.work",
     "license": "MIT",
     "notes": "便携版。未签名版本首次运行可能触发 SmartScreen，选择「更多信息 → 仍要运行」。",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/dolag233/Serpent/releases/download/v0.3.4/Serpent-win-x86-64-0.3.4-portable.zip",
-            "hash": "271931e725481e40d44f9bce03f78a03a4013b3fa601c5ace4a152831a2dc052"
+            "url": "https://github.com/dolag233/Serpent/releases/download/v0.3.5/Serpent-win-x86-64-0.3.5-portable.zip",
+            "hash": "85689a89043723476ba158117844108eb6ab7dc333260ca02a883ab8032cd998"
         }
     },
     "bin": "Serpent.exe",
