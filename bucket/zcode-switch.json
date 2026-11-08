@@ -1,5 +1,5 @@
 {
-    "##": "官方仓库 pjpv/zcode-switch 停在 1.7.1；本清单跟随持续发版的 fork wjsqqj/zcode-switch（版本号形如 1.7.5-Z.EMAIL）。该 fork 重新提供单文件便携 exe，可直接安装，无需再解 NSIS 外壳。",
+    "##": "官方仓库 pjpv/zcode-switch 停在 1.7.1；本清单跟随持续发版的 fork wjsqqj/zcode-switch（版本号形如 1.7.5-Z.EMAIL）。该 fork 重新提供单文件便携 exe，可直接安装，无需再解 NSIS 外壳。GitHub 默认 checkver 正则只取数字、点与连字符，会把 1.7.5-Z.EMAIL 截成 1.7.5-，使 autoupdate 拼出不存在的校验和地址；因此显式指定 regex 完整捕获。",
     "version": "1.7.5-Z.EMAIL",
     "description": "在多个 ZCode 账号之间一键切换：额度展示、活动领取与加密导入导出",
     "homepage": "https://github.com/wjsqqj/zcode-switch",
@@ -28,7 +28,8 @@
         ]
     ],
     "checkver": {
-        "github": "https://github.com/wjsqqj/zcode-switch"
+        "github": "https://github.com/wjsqqj/zcode-switch",
+        "regex": "v(\\d+(?:\\.\\d+)+-Z\\.EMAIL)"
     },
     "autoupdate": {
         "architecture": {

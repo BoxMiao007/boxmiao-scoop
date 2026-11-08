@@ -1,4 +1,5 @@
 {
+    "##": "上游自 Chromium 148 起改为 CloakBrowser Pro 授权分发：新 tag 均为 -pro 变体，release 只上传 SHA256SUMS/SHA256SUMS.sig，不再公开提供 cloakbrowser-windows-x64.zip，且 -pro 对应的无后缀 tag 并不存在。清单因此冻结在最后一个附带 Windows 包的 chromium-v146.0.7680.177.5；checkver 固定指向该 release，避免用被截断的版本号拼出 404 的校验和地址。待上游恢复公开二进制后再改回 latest 模式。",
     "version": "146.0.7680.177.5",
     "description": "Stealth Chromium with source-level fingerprint patches. Drop-in Playwright replacement.",
     "homepage": "https://github.com/CloakHQ/CloakBrowser",
@@ -25,7 +26,7 @@
     ],
     "persist": "User Data",
     "checkver": {
-        "github": "https://github.com/CloakHQ/CloakBrowser",
+        "github": "https://api.github.com/repos/CloakHQ/CloakBrowser/releases/tags/chromium-v146.0.7680.177.5",
         "regex": "chromium-v([\\d.]+)"
     },
     "autoupdate": {
