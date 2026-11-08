@@ -1,6 +1,6 @@
 {
     "##": "上游由 AmarBego/Rscoop 切换到 BoxMiao007/Rscoop fork（基于 v1.11.0，新增系统代理自动检测并同步写回 Scoop config.json）。fork 版本号形如 1.11.0-fork.1，GitHub 默认 checkver 正则只取数字与点、会截成 1.11.0-，因此显式指定 regex 完整捕获。发布物同时含 NSIS 安装程序与单文件便携 rscoop.exe，沿用便携 exe 直接安装；该版本不含自动更新签名，应用内更新不可用，升级交由 Scoop。",
-    "version": "1.11.0-fork.2",
+    "version": "1.11.0-fork.3",
     "description": "Scoop 包管理器的桌面 GUI，支持系统代理自动检测；无需终端即可搜索、安装、更新和管理 Windows 软件包",
     "homepage": "https://github.com/BoxMiao007/Rscoop",
     "license": "MIT",
@@ -8,8 +8,8 @@
         "该 fork 在设置中新增「网络」标签，可自动检测系统代理或自定义代理，并同步写入 Scoop 的 config.json。",
         "本版本不含自动更新签名，应用内更新不可用；请通过 scoop update rscoop 升级。"
     ],
-    "url": "https://github.com/BoxMiao007/Rscoop/releases/download/v1.11.0-fork.2/rscoop.exe",
-    "hash": "5e8205665488a22a4b21bf0e70f4df666f324bc6d74dbd5b824fbcd1d03025ea",
+    "url": "https://github.com/BoxMiao007/Rscoop/releases/download/v1.11.0-fork.3/rscoop.exe",
+    "hash": "0a81921a29db8a613c6cafd9f0660bc4b93f4c6bfe438289d6bd74eacb7fa88d",
     "bin": "rscoop.exe",
     "shortcuts": [
         [
