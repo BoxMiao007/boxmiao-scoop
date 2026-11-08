@@ -21,21 +21,27 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # GithubActions 初始化时会执行 `scoop install hub -g`，
-          # 下载源 mislav/hub 的 release 偶发 504 会让整次运行直接退出，
-          # 连 checkver 都跑不到。这里用带认证的 gh 先把包放进 Scoop 缓存，
-          # 使安装命中缓存、不再走浏览器下载。
+          # GithubActions 初始化会先自行安装 Scoop，再执行 `scoop install hub -g`；
+          # mislav/hub 的 release 下载偶发 504 会让整次运行在 checkver 前就退出。
+          # 这里按同样方式先装好 Scoop，再用带认证的 gh 把 hub 预置进缓存，
+          # 使安装命中缓存。顺序不能反：提前创建 cache 会让安装脚本因目录非空而中止。
           $ErrorActionPreference = 'Stop'
+          $scoopRoot = if ($env:SCOOP) { $env:SCOOP } else { Join-Path $env:USERPROFILE 'SCOOP' }
+          if (-not (Test-Path (Join-Path $scoopRoot 'apps\scoop\current'))) {
+            Invoke-RestMethod 'https://raw.githubusercontent.com/ScoopInstaller/Install/master/install.ps1' | Invoke-Expression
+          }
+          $shims = Join-Path $scoopRoot 'shims'
+          $env:PATH = "$shims;$env:PATH"
+          Add-Content -Path $env:GITHUB_PATH -Value $shims
+          if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) { throw 'scoop unavailable after install' }
+
           $url = 'https://github.com/mislav/hub/releases/download/v2.14.2/hub-windows-amd64-2.14.2.zip'
           $sha = [Security.Cryptography.SHA256]::Create()
           $urlhash = ([BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($url))) -replace '-', '').Substring(0, 7).ToLower()
-          $scoopRoot = if ($env:SCOOP) { $env:SCOOP } else { Join-Path $env:USERPROFILE 'SCOOP' }
           $cache = Join-Path $scoopRoot 'cache'
           New-Item -ItemType Directory -Force -Path $cache | Out-Null
           $target = Join-Path $cache "hub#2.14.2#$urlhash.zip"
-          if (Test-Path $target) {
-            Write-Output "hub cache already present: $target"
-          } else {
+          if (-not (Test-Path $target)) {
             $tmp = Join-Path $env:RUNNER_TEMP 'hub-preinstall'
             New-Item -ItemType Directory -Force -Path $tmp | Out-Null
             gh release download v2.14.2 --repo mislav/hub --pattern 'hub-windows-amd64-2.14.2.zip' --dir $tmp --clobber
