@@ -16,8 +16,38 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Preinstall hub into Scoop cache
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # GithubActions 初始化时会执行 `scoop install hub -g`，
+          # 下载源 mislav/hub 的 release 偶发 504 会让整次运行直接退出，
+          # 连 checkver 都跑不到。这里用带认证的 gh 先把包放进 Scoop 缓存，
+          # 使安装命中缓存、不再走浏览器下载。
+          $ErrorActionPreference = 'Stop'
+          $url = 'https://github.com/mislav/hub/releases/download/v2.14.2/hub-windows-amd64-2.14.2.zip'
+          $sha = [Security.Cryptography.SHA256]::Create()
+          $urlhash = ([BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($url))) -replace '-', '').Substring(0, 7).ToLower()
+          $scoopRoot = if ($env:SCOOP) { $env:SCOOP } else { Join-Path $env:USERPROFILE 'SCOOP' }
+          $cache = Join-Path $scoopRoot 'cache'
+          New-Item -ItemType Directory -Force -Path $cache | Out-Null
+          $target = Join-Path $cache "hub#2.14.2#$urlhash.zip"
+          if (Test-Path $target) {
+            Write-Output "hub cache already present: $target"
+          } else {
+            $tmp = Join-Path $env:RUNNER_TEMP 'hub-preinstall'
+            New-Item -ItemType Directory -Force -Path $tmp | Out-Null
+            gh release download v2.14.2 --repo mislav/hub --pattern 'hub-windows-amd64-2.14.2.zip' --dir $tmp --clobber
+            if ($LASTEXITCODE -ne 0) { throw 'gh release download failed' }
+            $src = Join-Path $tmp 'hub-windows-amd64-2.14.2.zip'
+            if (-not (Test-Path $src)) { throw "hub zip not found: $src" }
+            Copy-Item $src $target -Force
+          }
+          if (-not (Test-Path $target)) { throw "hub cache not created: $target" }
+          Get-Item $target | Select-Object FullName, Length
       - name: Excavate
-        uses: ScoopInstaller/GithubActions@main
+        uses: ScoopInstaller/GithubActions@5bceeda181721d9d10a18fdcc3ddca6f33467ae6 # v3.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SKIP_UPDATED: 1
