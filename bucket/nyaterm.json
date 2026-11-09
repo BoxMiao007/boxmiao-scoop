@@ -1,6 +1,6 @@
 {
     "##": "上游便携版靠程序目录中的 nyaterm-portable 标记文件启用便携模式，设置、会话与密钥都存放在同目录的 data 子目录。不能用 extract_dir 展开：包根目录 NyaTerm-portable 与标记文件 nyaterm-portable 仅大小写不同，Scoop 展开时用 robocopy 把子目录内容上移，会因同名冲突把标记文件留在子目录，程序于是按非便携模式运行。因此保留 NyaTerm-portable 这一层，persist 其 data，快捷方式也带上该目录。",
-    "version": "2.0.3",
+    "version": "2.0.4",
     "description": "现代远程终端工作区，集成 SSH、Telnet、串口、SFTP、RDP/VNC 会话、隧道与内置 AI 助手",
     "homepage": "https://nyaterm.app",
     "license": "Apache-2.0",
@@ -11,12 +11,12 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/nyakang/nyaterm/releases/download/v2.0.3/NyaTerm_2.0.3_windows_x64_portable.zip",
-            "hash": "6021b5e58761ea930f019dadb312f2f3e78150a79601b4381ae4af534fbe1bbd"
+            "url": "https://github.com/nyakang/nyaterm/releases/download/v2.0.4/NyaTerm_2.0.4_windows_x64_portable.zip",
+            "hash": "6a73ac2cf4a35eb01820835e1e74a9d22be855c5978e9e70bb3f3228619f1a09"
         },
         "arm64": {
-            "url": "https://github.com/nyakang/nyaterm/releases/download/v2.0.3/NyaTerm_2.0.3_windows_arm64_portable.zip",
-            "hash": "01d1d123513997bbb8c6a6d20d51297b122d46b51054e7f16d61e074d9687b4e"
+            "url": "https://github.com/nyakang/nyaterm/releases/download/v2.0.4/NyaTerm_2.0.4_windows_arm64_portable.zip",
+            "hash": "22403ff4a9df46a646b0d319a228f27b32cbfc6e78fcf2c4ac95ba8cfe6e290e"
         }
     },
     "persist": "NyaTerm-portable\\data",
