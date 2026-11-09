@@ -1,13 +1,13 @@
 {
     "##": "上游由 vpn-parser 更名为 vproxy（GitHub 仓库 mateo-ki/vpn-parser 已重定向）。上游为 Scoop 推荐便携版 zip，不再使用 Inno Setup 安装包：新版安装包的 Inno 版本无法被 Scoop 的 innoextract 解开。数据目录仍是程序目录下的 data，主库沿用历史 vpn-parser.db。",
-    "version": "1.16.7",
+    "version": "1.16.8",
     "description": "Rust + egui 编写的跨平台代理工作站：采集订阅、解析节点，驱动 Mihomo/sing-box/VP-Core/Xray 等六大内核实测可用性与延迟",
     "homepage": "https://github.com/mateo-ki/vproxy",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/mateo-ki/vproxy/releases/download/v1.16.7/vproxy-1.16.7-windows-x64-portable.zip",
-            "hash": "57354db19a40295c8cf08b9ab142a6c091853b1e286f1f2a748ea5e3f57910de"
+            "url": "https://github.com/mateo-ki/vproxy/releases/download/v1.16.8/vproxy-1.16.8-windows-x64-portable.zip",
+            "hash": "de4153b4263d61446eca731cfa2c2cbd455afd70532d0155a881fc434fc170e7"
         }
     },
     "bin": "vproxy.exe",
