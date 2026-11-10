@@ -82,7 +82,14 @@ scoop uninstall cloakbrowser
 
 | 应用 | 说明 |
 |------|------|
+| [Argus](https://argustask.com) | 快速、现代、信息丰富的 Windows 任务管理器，Rust 原生 + GPU 绘制，展示进程、性能、服务、启动项与网络连接 |
 | [VProxy](https://github.com/mateo-ki/vproxy) | Rust + egui 编写的跨平台代理工作站：采集订阅、解析节点，驱动 Mihomo/sing-box/VP-Core/Xray 等六大内核实测可用性与延迟 |
+
+### 效率与办公
+
+| 应用 | 说明 |
+|------|------|
+| [Kojoo Mail](https://mail.songxxai.com/kojoomail/) | 所有邮箱，一个收件箱：多邮箱统一收件箱与 AI 摘要、待办、起草、翻译的本地优先桌面邮件客户端 |
 
 ## 自动更新
 
