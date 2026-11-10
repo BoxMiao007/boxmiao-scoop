@@ -32,5 +32,6 @@ if not "%CODE%"=="0" echo [excavator-local] failed with exit code %CODE%
 :finish
 if /i "%EXCAVATOR_NO_PAUSE%"=="1" exit /b %CODE%
 echo.
-pause
+rem 等待用户按回车后结束，避免双击运行时窗口一闪而过
+set /p "_=请按回车键结束..."
 exit /b %CODE%
