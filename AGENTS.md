@@ -95,6 +95,6 @@ if (Test-Path $yaml) {
 .\excavator-local.bat -NoPush -App magpie    # bat 会原样转发参数
 ```
 
-bat 包装默认不暂停；双击运行时可先 `set EXCAVATOR_PAUSE=1`，结束后窗口会停住以便查看输出。
+bat 包装运行结束后会等待按回车键关闭窗口（方便双击运行查看结果）；自动化调用可先 `set EXCAVATOR_NO_PAUSE=1` 跳过等待。
 
 脚本要求当前在 `master` 且工作区干净。建议先配置 `scoop config gh_token`，否则 GitHub API 匿名限额每小时 60 次，容易中途 403。脚本正文保持 ASCII：Windows PowerShell 5.1 会把无 BOM 的 UTF-8 中文脚本按 ANSI 解析而报语法错误，仓库测试又禁止 BOM，所以中文说明只放在本文件。
