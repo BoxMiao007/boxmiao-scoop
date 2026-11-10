@@ -151,6 +151,14 @@ try {
         throw "Working tree has uncommitted changes, please handle them first:`n$($dirty -join [Environment]::NewLine)"
     }
 
+    if ($App -ne '*') {
+        # checkver silently checks nothing when -App matches no file, which hides typos.
+        $matched = @(Get-ChildItem -LiteralPath $bucketDir -Filter ($App + '.json') -File)
+        if ($matched.Count -eq 0) {
+            throw "No manifest matches -App '$App' in $bucketDir"
+        }
+    }
+
     # ---------- Sync remote ----------
 
     Write-Step "Syncing $Remote/$Branch"

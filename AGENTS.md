@@ -90,6 +90,11 @@ if (Test-Path $yaml) {
 .\scripts\excavator-local.ps1 -NoPush        # 只更新并本地提交，先确认会产生哪些提交
 .\scripts\excavator-local.ps1                # 更新、提交并推送，等价于一次 Excavator 运行
 .\scripts\excavator-local.ps1 -App magpie    # 只处理指定清单
+
+.\excavator-local.bat                        # 同上，bat 包装：优先 pwsh，其次 powershell
+.\excavator-local.bat -NoPush -App magpie    # bat 会原样转发参数
 ```
+
+bat 包装默认不暂停；双击运行时可先 `set EXCAVATOR_PAUSE=1`，结束后窗口会停住以便查看输出。
 
 脚本要求当前在 `master` 且工作区干净。建议先配置 `scoop config gh_token`，否则 GitHub API 匿名限额每小时 60 次，容易中途 403。脚本正文保持 ASCII：Windows PowerShell 5.1 会把无 BOM 的 UTF-8 中文脚本按 ANSI 解析而报语法错误，仓库测试又禁止 BOM，所以中文说明只放在本文件。
