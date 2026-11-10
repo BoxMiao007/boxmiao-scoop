@@ -81,3 +81,15 @@ if (Test-Path $yaml) {
 本仓库通过 Excavator（GitHub Actions）自动检查上游新版本，`checkver` 和 `autoupdate` 字段需配置正确。
 
 工作流配置为每小时检查一次（`.github/workflows/excavator.yml`，`cron: '20 * * * *'`），但公共仓库的 `schedule` 是尽力而为调度：实测本账户被合并到约每天 4 次，且与同账户其他仓库的触发时间点对齐。这是 GitHub 侧的账户级限流，改 cron 无效，不要为此反复调整频率。需要立即检查时用 `workflow_dispatch` 手动触发：`gh workflow run excavator.yml`。
+
+### 本地复现
+
+`scripts/excavator-local.ps1` 在本地复现上述 Excavator：同步 `origin/master` → 运行 `checkver -Update` → 逐个提交 `<app>: Update to version <version>` → 推送。全程用 git，不需要 `hub`。
+
+```pwsh
+.\scripts\excavator-local.ps1 -NoPush        # 只更新并本地提交，先确认会产生哪些提交
+.\scripts\excavator-local.ps1                # 更新、提交并推送，等价于一次 Excavator 运行
+.\scripts\excavator-local.ps1 -App magpie    # 只处理指定清单
+```
+
+脚本要求当前在 `master` 且工作区干净。建议先配置 `scoop config gh_token`，否则 GitHub API 匿名限额每小时 60 次，容易中途 403。
