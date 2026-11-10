@@ -1,8 +1,9 @@
 @echo off
-rem Run scripts\excavator-local.ps1 (local replica of the Excavator workflow).
-rem Usage: excavator-local.bat [-App <name>] [-NoPush] [-ThrowError] [-Remote <name>] [-Branch <branch>]
-rem All arguments are forwarded to the PowerShell script.
-rem Set EXCAVATOR_PAUSE=1 to keep the window open after the run (useful for double-click).
+rem 本地运行 scripts\excavator-local.ps1（Excavator 工作流的本地复现）。
+rem 用法：excavator-local.bat [-App <名称>] [-NoPush] [-ThrowError] [-Remote <远端>] [-Branch <分支>]
+rem 所有参数原样转发给 PowerShell 脚本。
+rem 设置 EXCAVATOR_PAUSE=1 可在运行结束后暂停窗口，方便双击运行后查看输出。
+chcp 65001 >nul
 setlocal
 set "SCRIPT=%~dp0scripts\excavator-local.ps1"
 
@@ -12,6 +13,7 @@ if not exist "%SCRIPT%" (
     exit /b 1
 )
 
+rem 优先使用 PowerShell 7（pwsh），没有时回退到 Windows PowerShell 5.1
 set "PS_EXE="
 where pwsh.exe >nul 2>nul && set "PS_EXE=pwsh.exe"
 if not defined PS_EXE (
@@ -23,6 +25,7 @@ if not defined PS_EXE (
     exit /b 1
 )
 
+rem -NoProfile 避免加载用户配置影响输出；-ExecutionPolicy Bypass 允许运行本地脚本
 "%PS_EXE%" -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT%" %*
 set "CODE=%ERRORLEVEL%"
 
