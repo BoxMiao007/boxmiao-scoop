@@ -1,17 +1,17 @@
 {
-    "##": "Zed 编辑器的简体中文重编译版。原上游 x6nux/zed-globalization 与 scoop-zedg bucket 已随账号注销失效，项目迁至 wenyinos/ZedG，清单改由本 bucket 维护。",
+    "##": "Zed 编辑器的简体中文重编译版。原上游 x6nux/zed-globalization 与 scoop-zedg bucket 已随账号注销失效，项目迁至 WenYin-Community/ZedG（原 wenyinos/ZedG，旧地址 301 跳转），清单改由本 bucket 维护。",
     "version": "1.27.0",
     "description": "Zed 编辑器的简体中文版，AI 自动翻译并重新编译，跟随上游版本自动更新",
-    "homepage": "https://github.com/wenyinos/ZedG",
+    "homepage": "https://github.com/WenYin-Community/ZedG",
     "license": "GPL-3.0-only",
     "notes": "第三方汉化重编译版，Windows 构建未签名，首次运行可能触发 SmartScreen 提示。",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/wenyinos/ZedG/releases/download/v1.27.0/zedg-zh-cn-windows-x86_64-v1.27.0.zip",
+            "url": "https://github.com/WenYin-Community/ZedG/releases/download/v1.27.0/zedg-zh-cn-windows-x86_64-v1.27.0.zip",
             "hash": "519383fe34fb7a8d701d77e06e30470f6da98d620fa86d9907082c974da5ebaa"
         },
         "arm64": {
-            "url": "https://github.com/wenyinos/ZedG/releases/download/v1.27.0/zedg-zh-cn-windows-aarch64-v1.27.0.zip",
+            "url": "https://github.com/WenYin-Community/ZedG/releases/download/v1.27.0/zedg-zh-cn-windows-aarch64-v1.27.0.zip",
             "hash": "9706a1d4fae0e3e050b5f324e286f9db1351dfe0f2c80efd1bd4ade779c35515"
         }
     },
@@ -28,21 +28,21 @@
         ]
     ],
     "checkver": {
-        "github": "https://github.com/wenyinos/ZedG"
+        "github": "https://github.com/WenYin-Community/ZedG"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/wenyinos/ZedG/releases/download/v$version/zedg-zh-cn-windows-x86_64-v$version.zip",
+                "url": "https://github.com/WenYin-Community/ZedG/releases/download/v$version/zedg-zh-cn-windows-x86_64-v$version.zip",
                 "hash": {
-                    "url": "https://github.com/wenyinos/ZedG/releases/download/v$version/sha256sums.txt",
+                    "url": "https://github.com/WenYin-Community/ZedG/releases/download/v$version/sha256sums.txt",
                     "regex": "([a-fA-F0-9]{64})\\s+zedg-zh-cn-windows-x86_64-v$version\\.zip"
                 }
             },
             "arm64": {
-                "url": "https://github.com/wenyinos/ZedG/releases/download/v$version/zedg-zh-cn-windows-aarch64-v$version.zip",
+                "url": "https://github.com/WenYin-Community/ZedG/releases/download/v$version/zedg-zh-cn-windows-aarch64-v$version.zip",
                 "hash": {
-                    "url": "https://github.com/wenyinos/ZedG/releases/download/v$version/sha256sums.txt",
+                    "url": "https://github.com/WenYin-Community/ZedG/releases/download/v$version/sha256sums.txt",
                     "regex": "([a-fA-F0-9]{64})\\s+zedg-zh-cn-windows-aarch64-v$version\\.zip"
                 }
             }
