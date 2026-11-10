@@ -116,8 +116,8 @@ try {
         throw "未找到 Scoop 的 checkver.ps1：$checkverPath（本机是否已安装 Scoop？）"
     }
     if (-not $env:SCOOP) {
-        # scoop 安装根目录：<SCOOP_HOME> 形如 <SCOOP>/apps/scoop/current
-        $env:SCOOP = Split-Path -Parent (Split-Path -Parent $env:SCOOP_HOME)
+        # scoop 安装根目录：<SCOOP_HOME> 形如 <SCOOP>/apps/scoop/current，上溯三级
+        $env:SCOOP = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $env:SCOOP_HOME))
     }
 
     $tokenConfigured = $false
