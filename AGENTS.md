@@ -92,4 +92,4 @@ if (Test-Path $yaml) {
 .\scripts\excavator-local.ps1 -App magpie    # 只处理指定清单
 ```
 
-脚本要求当前在 `master` 且工作区干净。建议先配置 `scoop config gh_token`，否则 GitHub API 匿名限额每小时 60 次，容易中途 403。
+脚本要求当前在 `master` 且工作区干净。建议先配置 `scoop config gh_token`，否则 GitHub API 匿名限额每小时 60 次，容易中途 403。脚本正文保持 ASCII：Windows PowerShell 5.1 会把无 BOM 的 UTF-8 中文脚本按 ANSI 解析而报语法错误，仓库测试又禁止 BOM，所以中文说明只放在本文件。

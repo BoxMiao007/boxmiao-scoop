@@ -1,56 +1,64 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    在本地复现 GitHub Excavator 工作流：检测上游新版本、更新清单、逐个提交并推送。
+    Replicate the GitHub Excavator workflow locally: detect new upstream versions,
+    update manifests, commit each change and push.
 
 .DESCRIPTION
-    对应 .github/workflows/excavator.yml（ScoopInstaller/GithubActions v3 的 Excavator）。
-    工作流在 windows-latest 上做的事，本脚本用本地 Scoop 等价完成：
+    Equivalent of .github/workflows/excavator.yml (ScoopInstaller/GithubActions v3
+    Excavator). The workflow runs on windows-latest; this script does the same work
+    with the locally installed Scoop:
 
-      1. 同步 origin/<Branch>，保证从最新提交开始；
-      2. 运行 Scoop 的 checkver -Update，按 autoupdate 改写 bucket/ 下的清单；
-      3. 每个变更的清单单独提交，提交信息为 "<app>: Update to version <version>"；
-      4. 推送前再次 rebase，然后 push 到 origin/<Branch>。
+      1. sync origin/<Branch> so we start from the latest commit;
+      2. run Scoop's checkver -Update, which rewrites manifests in bucket/ via autoupdate;
+      3. commit every changed manifest separately with
+         "<app>: Update to version <version>";
+      4. rebase once more and push to origin/<Branch>.
 
-    与工作流的差异：
-      * 不使用 hub：本地直接用 git 完成 add/commit/push，不需要 `scoop install hub`；
-      * 工作流里"预置 hub 到 Scoop 缓存"那一步是为绕开 Actions 上 hub release 的 504，
-        本地无需执行，脚本也不做；
-      * 工作流固定 SKIP_UPDATED=1，脚本等价地传 -SkipUpdated。
+    Differences from the workflow:
+      * no hub: add/commit/push are done with plain git, so `scoop install hub` is not needed;
+      * the workflow's "preinstall hub into the Scoop cache" step only works around
+        occasional 504s of hub releases on Actions and is intentionally not replicated;
+      * the workflow pins SKIP_UPDATED=1; this script passes -SkipUpdated equivalently.
 
-    前置条件：本机已安装 Scoop（checkver 来自 Scoop 自身），当前分支干净且等于 -Branch，
-    建议配置 GitHub token（`scoop config gh_token <token>` 或设置 GH_TOKEN/GITHUB_TOKEN），
-    否则 GitHub API 匿名限额 60 次/小时，容易中途 403。
+    This file is intentionally ASCII-only: Windows PowerShell 5.1 reads scripts
+    without a BOM as ANSI, so non-ASCII text breaks parsing, and the repository
+    tests forbid a UTF-8 BOM. User documentation lives in AGENTS.md (Chinese).
+
+    Prerequisites: Scoop installed, current branch clean and equal to -Branch,
+    and preferably a GitHub token (`scoop config gh_token <token>`, or GH_TOKEN /
+    GITHUB_TOKEN env vars). Anonymous GitHub API is limited to 60 requests/hour,
+    which makes checkver fail with 403 partway through.
 
 .PARAMETER App
-    只检查指定清单名（支持 * 通配），默认 * 即全部。
+    Manifest name to check (supports * wildcard). Default * (all).
 
 .PARAMETER Remote
-    远端名，默认 origin。
+    Remote name, default origin.
 
 .PARAMETER Branch
-    推送目标分支，默认 master。当前分支必须与之一致。
+    Target branch, default master. The current branch must match.
 
 .PARAMETER CommitMessageFormat
-    提交信息模板，<app> 与 <version> 会被替换。默认与 Excavator 一致。
+    Commit message template; <app> and <version> are replaced. Default matches Excavator.
 
 .PARAMETER NoPush
-    只更新并本地提交，不推送；用于预览脚本会产生哪些提交。
+    Only update and commit locally, do not push. Useful to preview the commits.
 
 .PARAMETER ThrowError
-    透传给 checkver：单个清单检测失败时抛异常终止，而不是继续并汇总。
+    Forwarded to checkver: throw on the first manifest failure instead of continuing.
 
 .EXAMPLE
     .\scripts\excavator-local.ps1 -NoPush
-    本地更新并逐个提交，不推送。
+    Update and commit locally, without pushing.
 
 .EXAMPLE
     .\scripts\excavator-local.ps1
-    更新、提交并推送，等价于一次 Excavator 运行。
+    Update, commit and push; equivalent to one Excavator run.
 
 .EXAMPLE
     .\scripts\excavator-local.ps1 -App magpie
-    只检查并更新 magpie。
+    Only check and update magpie.
 #>
 [CmdletBinding()]
 param(
@@ -66,7 +74,7 @@ $ErrorActionPreference = 'Stop'
 try {
     [Console]::OutputEncoding = [Text.Encoding]::UTF8
 } catch {
-    # 老版本控制台不支持时忽略，不影响功能
+    # Older consoles may not allow this; it is cosmetic only.
 }
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
@@ -86,91 +94,91 @@ function Invoke-Git {
     $output = & git @GitArgs 2>&1
     $code = $LASTEXITCODE
     if ($code -ne 0 -and -not $AllowFail) {
-        throw "git $($GitArgs -join ' ') 失败（退出码 $code）：`n$($output -join [Environment]::NewLine)"
+        throw "git $($GitArgs -join ' ') failed (exit code $code):`n$($output -join [Environment]::NewLine)"
     }
     return [pscustomobject]@{ Code = $code; Output = @($output) }
 }
 
-# ---------- 前置检查 ----------
+# ---------- Preconditions ----------
 
 if (-not (Test-Path -LiteralPath (Join-Path $repoRoot '.git'))) {
-    throw "找不到仓库根目录的 .git：$repoRoot"
+    throw "Repository root has no .git: $repoRoot"
 }
 if (-not (Test-Path -LiteralPath $bucketDir -PathType Container)) {
-    throw "找不到清单目录：$bucketDir"
+    throw "Manifest directory not found: $bucketDir"
 }
 
 Push-Location $repoRoot
 $failedApps = New-Object System.Collections.Generic.List[string]
 try {
     if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
-        throw '未找到 git，请先安装 Git for Windows'
+        throw 'git not found; please install Git for Windows'
     }
 
-    # checkver 来自 Scoop 自身，需要 SCOOP_HOME；SCOOP 用于定位 scoop config（token 等配置）
+    # checkver comes from Scoop itself, so SCOOP_HOME is required. SCOOP is needed to
+    # locate Scoop's config (e.g. the stored GitHub token).
     if (-not $env:SCOOP_HOME) {
         $env:SCOOP_HOME = (Convert-Path (scoop prefix scoop))
     }
     $checkverPath = Join-Path $env:SCOOP_HOME 'bin\checkver.ps1'
     if (-not (Test-Path -LiteralPath $checkverPath)) {
-        throw "未找到 Scoop 的 checkver.ps1：$checkverPath（本机是否已安装 Scoop？）"
+        throw "Scoop checkver.ps1 not found: $checkverPath (is Scoop installed?)"
     }
     if (-not $env:SCOOP) {
-        # scoop 安装根目录：<SCOOP_HOME> 形如 <SCOOP>/apps/scoop/current，上溯三级
+        # SCOOP_HOME looks like <SCOOP>/apps/scoop/current, so go up three levels.
         $env:SCOOP = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $env:SCOOP_HOME))
     }
 
     $tokenConfigured = $false
     foreach ($name in 'SCOOP_GH_TOKEN', 'GH_TOKEN', 'GITHUB_TOKEN') {
-        $value = [Environment]::GetEnvironmentVariable($name)
-        if ($value) { $tokenConfigured = $true; break }
+        if ([Environment]::GetEnvironmentVariable($name)) { $tokenConfigured = $true; break }
     }
     if (-not $tokenConfigured) {
-        # scoop config 会把值打印到 stdout，只取变量，不回显
-        $configToken = scoop config gh_token 2>$null
-        if ($configToken) { $tokenConfigured = $true }
+        # scoop config prints the value to stdout; capture it without echoing.
+        if (scoop config gh_token 2>$null) { $tokenConfigured = $true }
     }
     if (-not $tokenConfigured) {
-        Write-Warning '未检测到 GitHub token，匿名 API 限额为每小时 60 次，checkver 可能中途报 403。可执行：scoop config gh_token <token>'
+        Write-Warning 'No GitHub token detected. Anonymous API is limited to 60 requests/hour and checkver may fail with 403. Run: scoop config gh_token <token>'
     }
 
     $currentBranch = (& git rev-parse --abbrev-ref HEAD).Trim()
     if ($currentBranch -ne $Branch) {
-        throw "当前分支为 $currentBranch，脚本要求在 $Branch 上执行（可用 -Branch 指定）。"
+        throw "Current branch is $currentBranch but the script requires $Branch (use -Branch to override)."
     }
 
     $dirty = @(& git status --porcelain --untracked-files=no)
     if ($dirty.Count -gt 0) {
-        throw "工作区存在未提交的改动，请先处理后再运行：`n$($dirty -join [Environment]::NewLine)"
+        throw "Working tree has uncommitted changes, please handle them first:`n$($dirty -join [Environment]::NewLine)"
     }
 
-    # ---------- 同步远端 ----------
+    # ---------- Sync remote ----------
 
-    Write-Step "同步 $Remote/$Branch"
+    Write-Step "Syncing $Remote/$Branch"
     Invoke-Git @('fetch', $Remote, $Branch) | Out-Null
     $pull = Invoke-Git @('pull', '--rebase', '--autostash', $Remote, $Branch) -AllowFail
     if ($pull.Code -ne 0) {
-        throw "拉取 $Remote/$Branch 失败，请手动处理后重试：`n$($pull.Output -join [Environment]::NewLine)"
+        throw "Failed to pull $Remote/$Branch; fix it manually and retry:`n$($pull.Output -join [Environment]::NewLine)"
     }
     $pull.Output | ForEach-Object { Write-Host $_ }
 
-    # ---------- 检测并更新清单 ----------
+    # ---------- Detect and update manifests ----------
 
-    Write-Step "运行 checkver -Update（App=$App）"
+    Write-Step "Running checkver -Update (App=$App)"
     $checkverOutput = & $checkverPath -App $App -Dir $bucketDir -Update -SkipUpdated -ThrowError:$ThrowError 2>&1
     $checkverCode = $LASTEXITCODE
     $checkverOutput | ForEach-Object { Write-Host $_ }
 
     foreach ($line in $checkverOutput) {
-        # checkver 对单个清单失败只打印错误并继续，这里收集起来在末尾汇总为非零退出码
-        if ("$line" -match 'rate limit|not valid|无法|无效|错误|error') {
+        # checkver only prints per-manifest errors and keeps going; collect them so we
+        # can exit non-zero at the end, just like a failed workflow step.
+        if ("$line" -match 'rate limit|not valid|not found|failed|error') {
             $failedApps.Add(("$line").Trim())
         }
     }
 
-    # ---------- 逐个提交 ----------
+    # ---------- Commit each manifest ----------
 
-    Write-Step '提交变更的清单'
+    Write-Step 'Committing changed manifests'
     $status = @(& git status --porcelain --untracked-files=no -- 'bucket')
     $committed = 0
     $skipped = New-Object System.Collections.Generic.List[string]
@@ -184,11 +192,11 @@ try {
         try {
             $manifest = Get-Content -LiteralPath $fullPath -Raw | ConvertFrom-Json
         } catch {
-            $failedApps.Add("$relative（JSON 解析失败：$($_.Exception.Message)）")
+            $failedApps.Add("$relative (JSON parse failed: $($_.Exception.Message))")
             continue
         }
         if (-not $manifest.PSObject.Properties['version'] -or -not $manifest.version) {
-            $failedApps.Add("$relative（缺少 version 字段）")
+            $failedApps.Add("$relative (missing version field)")
             continue
         }
 
@@ -198,22 +206,22 @@ try {
         Invoke-Git @('add', '--', $relative) | Out-Null
         $staged = @(& git diff --cached --name-only -- $relative)
         if ($staged.Count -eq 0) {
-            # 只有行尾（LF/CRLF）差异时不会产生暂存内容，与 Excavator 的跳过逻辑一致
+            # Line-ending-only changes leave nothing staged; mirror Excavator's skip.
             $skipped.Add($appName)
             continue
         }
         $commit = Invoke-Git @('commit', '-m', $message) -AllowFail
         if ($commit.Code -ne 0) {
-            $failedApps.Add("$appName（提交失败：$($commit.Output -join ' ')）")
+            $failedApps.Add("$appName (commit failed: $($commit.Output -join ' '))")
             Invoke-Git @('reset', '--', $relative) -AllowFail | Out-Null
             continue
         }
         $committed++
-        Write-Host "已提交：$message" -ForegroundColor Green
+        Write-Host "Committed: $message" -ForegroundColor Green
     }
 
     if ($skipped.Count -gt 0) {
-        Write-Host "跳过（仅行尾差异）：$($skipped -join ', ')" -ForegroundColor Yellow
+        Write-Host "Skipped (line-ending-only changes): $($skipped -join ', ')" -ForegroundColor Yellow
     }
 
     $ahead = 0
@@ -222,23 +230,23 @@ try {
         $ahead = [int]("$($countResult.Output[0])".Trim())
     }
 
-    # ---------- 推送 ----------
+    # ---------- Push ----------
 
     if ($NoPush) {
-        Write-Step '汇总（-NoPush，未推送）'
-        Write-Host "新提交：$committed 个，本地领先 $Remote/$Branch $ahead 个提交。"
+        Write-Step 'Summary (-NoPush, nothing pushed)'
+        Write-Host "New commits: $committed, local is $ahead commit(s) ahead of $Remote/$Branch."
         if ($ahead -gt 0) {
             & git --no-pager log --oneline "$Remote/$Branch..HEAD" | ForEach-Object { Write-Host "  $_" }
         }
     } elseif ($ahead -eq 0 -and $committed -eq 0) {
-        Write-Step '汇总'
-        Write-Host '没有检测到需要更新的清单。' -ForegroundColor Green
+        Write-Step 'Summary'
+        Write-Host 'No manifests need updating.' -ForegroundColor Green
     } else {
-        Write-Step "推送前 rebase $Remote/$Branch"
+        Write-Step "Rebasing onto $Remote/$Branch before push"
         $rebase = Invoke-Git @('pull', '--rebase', '--autostash', $Remote, $Branch) -AllowFail
         if ($rebase.Code -ne 0) {
             Invoke-Git @('rebase', '--abort') -AllowFail | Out-Null
-            throw "推送前 rebase 失败，已中止 rebase，本地提交保留，请手动处理：`n$($rebase.Output -join [Environment]::NewLine)"
+            throw "Pre-push rebase failed; rebase aborted, local commits kept. Fix manually:`n$($rebase.Output -join [Environment]::NewLine)"
         }
         $rebase.Output | ForEach-Object { Write-Host $_ }
 
@@ -248,42 +256,42 @@ try {
             $toPush = [int]("$($countResult.Output[0])".Trim())
         }
 
-        Write-Step "推送 $Remote/$Branch"
+        Write-Step "Pushing $Remote/$Branch"
         $push = Invoke-Git @('push', $Remote, "HEAD:$Branch") -AllowFail
         if ($push.Code -ne 0) {
-            # 远端可能刚被别人（Excavator）推进，同步后再试一次
-            Write-Warning "首次推送失败，rebase 后重试：$($push.Output -join ' ')"
+            # The remote may have moved (e.g. Excavator); sync and retry once.
+            Write-Warning "First push failed, retrying after rebase: $($push.Output -join ' ')"
             Invoke-Git @('fetch', $Remote, $Branch) | Out-Null
             $retryRebase = Invoke-Git @('pull', '--rebase', '--autostash', $Remote, $Branch) -AllowFail
             if ($retryRebase.Code -ne 0) {
                 Invoke-Git @('rebase', '--abort') -AllowFail | Out-Null
-                throw "重试前 rebase 失败，本地提交保留：`n$($retryRebase.Output -join [Environment]::NewLine)"
+                throw "Rebase before retry failed; local commits kept:`n$($retryRebase.Output -join [Environment]::NewLine)"
             }
             $push = Invoke-Git @('push', $Remote, "HEAD:$Branch") -AllowFail
             if ($push.Code -ne 0) {
-                throw "推送失败：`n$($push.Output -join [Environment]::NewLine)"
+                throw "Push failed:`n$($push.Output -join [Environment]::NewLine)"
             }
         }
         $push.Output | ForEach-Object { Write-Host $_ }
-        Write-Host "已推送 $toPush 个提交（本次新增 $committed 个）到 $Remote/$Branch。" -ForegroundColor Green
+        Write-Host "Pushed $toPush commit(s) ($committed new) to $Remote/$Branch." -ForegroundColor Green
     }
 
-    # ---------- 退出码 ----------
+    # ---------- Exit code ----------
 
     if ($failedApps.Count -gt 0) {
         Write-Host ''
-        Write-Warning "以下清单检测/提交失败，其余清单不受影响："
+        Write-Warning 'The following manifests failed to check or commit; others were unaffected:'
         $failedApps | ForEach-Object { Write-Warning "  $_" }
         exit 1
     }
-    if ($checkverCode -ne 0 -and $failedApps.Count -eq 0) {
-        Write-Warning "checkver 退出码为 $checkverCode"
+    if ($checkverCode -ne 0) {
+        Write-Warning "checkver exited with code $checkverCode"
         exit $checkverCode
     }
     exit 0
 } catch {
     Write-Host ''
-    Write-Host "错误：$($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "ERROR: $($_.Exception.Message)" -ForegroundColor Red
     exit 1
 } finally {
     Pop-Location
