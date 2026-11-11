@@ -1,13 +1,13 @@
-# scoop-boxmiao
+# boxmiao-scoop
 
-[![Tests](https://github.com/BoxMiao007/scoop-boxmiao/actions/workflows/ci.yml/badge.svg)](https://github.com/BoxMiao007/scoop-boxmiao/actions/workflows/ci.yml) [![Excavator](https://github.com/BoxMiao007/scoop-boxmiao/actions/workflows/excavator.yml/badge.svg)](https://github.com/BoxMiao007/scoop-boxmiao/actions/workflows/excavator.yml)
+[![Tests](https://github.com/BoxMiao007/boxmiao-scoop/actions/workflows/ci.yml/badge.svg)](https://github.com/BoxMiao007/boxmiao-scoop/actions/workflows/ci.yml) [![Excavator](https://github.com/BoxMiao007/boxmiao-scoop/actions/workflows/excavator.yml/badge.svg)](https://github.com/BoxMiao007/boxmiao-scoop/actions/workflows/excavator.yml)
 
 个人维护的 [Scoop](https://scoop.sh) 软件仓库。
 
 ## 添加仓库
 
 ```pwsh
-scoop bucket add boxmiao https://github.com/BoxMiao007/scoop-boxmiao
+scoop bucket add boxmiao https://github.com/BoxMiao007/boxmiao-scoop
 ```
 
 ## 安装应用

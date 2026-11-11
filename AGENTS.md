@@ -1,4 +1,4 @@
-# scoop-boxmiao 开发规范
+# boxmiao-scoop 开发规范
 
 ## 仓库说明
 
