@@ -1,14 +1,14 @@
 {
     "##": "上游是 Tauri NSIS 安装包，7z 解开后包含 nodecloak.exe、proxy-core（sing-box）与卸载器。用 #/dl.7z 让 Scoop 先解包，installer.script 清理安装器残留。应用内置 Tauri updater（passive 安装模式）会把更新装到默认目录，请用 scoop update nodecloak 升级。",
-    "version": "5.0.2",
+    "version": "5.0.3",
     "description": "独立浏览器工作空间管理：为 Chrome/Edge/Firefox 副本单独配置代理、语言与隐私选项，并启动 Claude Code、Codex、Gemini 终端",
     "homepage": "https://nodecloak.com",
     "license": "MIT",
     "notes": "应用内更新会以 passive 模式运行安装包并装到默认目录，可能与 Scoop 管理的版本分离；升级请用 scoop update nodecloak。",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/nodecloak/nodecloak/releases/download/v5.0.2/NodeCloak_5.0.2_windows_x64_setup.exe#/dl.7z",
-            "hash": "bf9b4f7ee8b6581fe68e5fff598638f2aa122661b24b53b9f211922ee23ea3c9"
+            "url": "https://github.com/nodecloak/nodecloak/releases/download/v5.0.3/NodeCloak_5.0.3_windows_x64_setup.exe#/dl.7z",
+            "hash": "8e48b19b4ac12bf7f9059c48ca4c9df131810ad0ace9194f5010dc807951501d"
         }
     },
     "installer": {
