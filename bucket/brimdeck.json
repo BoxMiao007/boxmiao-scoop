@@ -1,6 +1,6 @@
 {
     "##": "上游便携包内含 BrimDeck.portable 文件清单，程序据此就地替换自身文件完成应用内更新。Scoop 负责版本管理，pre_install 删除该清单，使应用内更新入口改为打开下载页。",
-    "version": "1.2.4",
+    "version": "1.3.0",
     "description": "Windows 11 灵动岛小组件，在屏幕顶部集中显示 AI 编程工具额度与用量、音乐播放控制和系统监控",
     "homepage": "https://github.com/MoFeng2223/BrimDeck",
     "license": "Apache-2.0",
@@ -11,8 +11,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/MoFeng2223/BrimDeck/releases/download/v1.2.4/BrimDeck-1.2.4-Portable-x64.zip",
-            "hash": "840765ae90fd80b6e1c063100654e7ef897bf5a8fd6b7869f4a8e043c812dc41"
+            "url": "https://github.com/MoFeng2223/BrimDeck/releases/download/v1.3.0/BrimDeck-1.3.0-Portable-x64.zip",
+            "hash": "c13498026f16fc7372f399cf85fdd4d25badfa169282647cda31f9e446065f2f"
         }
     },
     "extract_dir": "BrimDeck",
