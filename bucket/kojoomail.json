@@ -1,6 +1,6 @@
 {
     "##": "上游是 Tauri 2 的 NSIS 安装器：7z 解开外壳后直接得到 kojoomail.exe，内部没有 app-64.7z，不需要二次解包；也没有 resources/app-update.yml（Tauri 更新配置编译在二进制里）。",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "所有邮箱，一个收件箱：多邮箱统一收件箱与 AI 摘要、待办、起草、翻译的本地优先桌面邮件客户端",
     "homepage": "https://mail.songxxai.com/kojoomail/",
     "license": "AGPL-3.0-only",
@@ -10,8 +10,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/ekoouu/kojoomail/releases/download/v0.3.1/KojooMail_0.3.1_x64-setup.exe#/dl.7z",
-            "hash": "072947af30dd754b7c0389126bd28c23883e8105272d10ed1f578b0240a4be30"
+            "url": "https://github.com/ekoouu/kojoomail/releases/download/v0.3.2/KojooMail_0.3.2_x64-setup.exe#/dl.7z",
+            "hash": "b38d8cab8047d8355abc905def0d6b267fc94dbc931f190565d93ab95389362f"
         }
     },
     "post_install": "Remove-Item \"$dir\\`$*\", \"$dir\\Uninstall*\" -Recurse -Force",
