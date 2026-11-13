@@ -1,13 +1,13 @@
 {
-    "version": "0.69.0",
+    "version": "0.70.0",
     "description": "本地优先的持久化 AI 智能体桌面工作台，为 Codex、Claude Code、Grok、OpenCode、Gemini 等 Agent 提供独立工作区、任务队列、文件传输与内置浏览器控制",
     "homepage": "https://openbot.run/",
     "license": "PolyForm Noncommercial 1.0.0",
     "notes": "非商业许可，仅限非商业用途。Agent 默认以完全访问权限运行（danger-full-access、approvalPolicy: never），请仅运行可信任务。",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/nightly-labs/openbot/releases/download/v0.69.0/OpenBot-0.69.0-x64.exe#/dl.7z",
-            "hash": "b028182159c6c0a40822bf22412ebd07de591acbd55927913900b1d1545f6ede"
+            "url": "https://github.com/nightly-labs/openbot/releases/download/v0.70.0/OpenBot-0.70.0-x64.exe#/dl.7z",
+            "hash": "8f6bbf0a271ff500cf7ef651b30c31b1315a8778647c28a9e610c33f54d174fe"
         }
     },
     "installer": {
