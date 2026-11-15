@@ -7,10 +7,6 @@
         "64bit": {
             "url": "https://downloads.tenzen.studio/photon/stable/win32/0.1.75/Photon-Studio-0.1.75-win-x64.exe#/dl.7z",
             "hash": "a6d48c7c91a3190ed9c37d0963515bae8189d66d98cfcaef2cf586d7b0a04e5e"
-        },
-        "arm64": {
-            "url": "https://downloads.tenzen.studio/photon/stable/win32/0.1.75/Photon-Studio-0.1.75-win-arm64.exe#/dl.7z",
-            "hash": "a32cc4678bc7b1631d33b98ab56438f1fa10b92f9f18289ec7549f08cf2cb5ff"
         }
     },
     "installer": {
@@ -43,9 +39,6 @@
         "architecture": {
             "64bit": {
                 "url": "https://downloads.tenzen.studio/photon/stable/win32/$version/Photon-Studio-$version-win-x64.exe#/dl.7z"
-            },
-            "arm64": {
-                "url": "https://downloads.tenzen.studio/photon/stable/win32/$version/Photon-Studio-$version-win-arm64.exe#/dl.7z"
             }
         }
     }

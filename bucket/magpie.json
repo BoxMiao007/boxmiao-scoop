@@ -12,10 +12,6 @@
         "64bit": {
             "url": "https://github.com/yetone/magpie/releases/download/v0.1.4260/magpie-windows-amd64.exe#/magpie.exe",
             "hash": "c27fcd433e7ca6a1cae548ceab88ff767f5c75f746ee65f3af3067f1a3d448ab"
-        },
-        "arm64": {
-            "url": "https://github.com/yetone/magpie/releases/download/v0.1.4260/magpie-windows-arm64.exe#/magpie.exe",
-            "hash": "31810784a9d33a8e7c556568649230f0262739e25608ba24707f284b518ed877"
         }
     },
     "bin": "magpie.exe",
@@ -35,13 +31,6 @@
                 "hash": {
                     "url": "https://github.com/yetone/magpie/releases/download/v$version/SHA256SUMS",
                     "regex": "([a-fA-F0-9]{64})\\s+magpie-windows-amd64\\.exe"
-                }
-            },
-            "arm64": {
-                "url": "https://github.com/yetone/magpie/releases/download/v$version/magpie-windows-arm64.exe#/magpie.exe",
-                "hash": {
-                    "url": "https://github.com/yetone/magpie/releases/download/v$version/SHA256SUMS",
-                    "regex": "([a-fA-F0-9]{64})\\s+magpie-windows-arm64\\.exe"
                 }
             }
         }
