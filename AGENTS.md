@@ -20,11 +20,19 @@
 - `checkver` — 自动检测版本（优先使用 `github` 方式）
 - `autoupdate` — 自动更新 URL 模板
 
+### 架构
+
+本仓库只维护 64bit（x64）安装包，不识别、不收录 ARM 架构：
+
+- 清单只写 `architecture.64bit`，不要写 `arm64`（或 `aarch64`）的 `url`、`hash`、`autoupdate`。
+- 上游同时发布 ARM 资源时直接忽略，`checkver` 也不要匹配 ARM 资产。
+- 已有清单按此收敛，删除 arm64 段。
+
 ### 安装包
 
 先看下载物是不是已经能运行的程序。zip、7z、便携 exe 直接用。是安装包时，清单必须装出可运行程序；应用目录里只剩安装包，视为清单错误。
 
-用 `7z l` 看安装包类型，再选下面一种。`url` 和 `autoupdate` 用同一套处理。上游有多个架构时，`architecture` 逐个写上。
+用 `7z l` 看安装包类型，再选下面一种。`url` 和 `autoupdate` 用同一套处理。上游有多个架构时只取 64bit，参见「架构」一节。
 
 **NSIS / electron-builder**（内含 `$PLUGINSDIR\app-64.7z` 或 `app-arm64.7z`）：
 
