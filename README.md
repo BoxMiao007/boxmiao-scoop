@@ -90,6 +90,7 @@ scoop uninstall cloakbrowser
 | 应用 | 说明 |
 |------|------|
 | [Kojoo Mail](https://mail.songxxai.com/kojoomail/) | 所有邮箱，一个收件箱：多邮箱统一收件箱与 AI 摘要、待办、起草、翻译的本地优先桌面邮件客户端 |
+| [STranslate](https://stranslate.zggsong.com) | 基于 WPF 的开箱即用翻译与 OCR 工具，支持划词翻译、截图识别与插件扩展 |
 
 ## 自动更新
 
