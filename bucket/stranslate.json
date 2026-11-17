@@ -1,6 +1,6 @@
 {
     "##": "上游发布 Velopack 便携版 zip，解压即用；配置保存在 current\\PortableConfig，已由 Scoop 持久化。",
-    "version": "2.0.10",
+    "version": "2.0.11",
     "description": "基于 WPF 的开箱即用翻译与 OCR 工具，支持划词翻译、截图识别与插件扩展",
     "homepage": "https://stranslate.zggsong.com",
     "license": "MIT",
@@ -10,8 +10,8 @@
     "notes": "应用内更新会把新版本写入 current 目录，Scoop 记录的版本会滞后；升级请用 scoop update stranslate。",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/STranslate/STranslate/releases/download/v2.0.10/STranslate-win-Portable.zip",
-            "hash": "d63f4cef674ae2f6ef782e1c7fa43b2475e62aea0ad31c34b41ab5c9cb58abc5"
+            "url": "https://github.com/STranslate/STranslate/releases/download/v2.0.11/STranslate-win-Portable.zip",
+            "hash": "18aec65e326e3f40234bb3752f3f908315d653df8584e86a2438de7868fb9907"
         }
     },
     "shortcuts": [
