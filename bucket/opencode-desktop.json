@@ -1,13 +1,13 @@
 {
     "##": "checkver 使用 releases 页面而非 releases.atom：上游会先打 git tag 再发版，atom feed 会把仅有 tag、尚未发布的版本（如 v2.2.7）也列出来，导致 autoupdate 去下载 opencode.ai 上还不存在的二进制而 404。releases 页面只列已正式发布的版本。下载源 opencode.ai/files/bin/$version/ 与 GitHub release 资产是同一文件（v2.2.6 的 digest 与清单 hash 一致），且该域名比 GitHub release 下载稳定。",
-    "version": "2.3.1",
+    "version": "2.3.2",
     "description": "Desktop app for OpenCode, the open source AI coding agent",
     "homepage": "https://opencode.ai",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://opencode.ai/files/bin/2.3.1/opencode-desktop-win-x64.exe#/dl.7z",
-            "hash": "e6e78e92a776712e85b4656279ae945d6833b869bf9520d500473a1280297bd7",
+            "url": "https://opencode.ai/files/bin/2.3.2/opencode-desktop-win-x64.exe#/dl.7z",
+            "hash": "1e73b4f49f591971f4ad61c5a39b284bf74d41f50ca1b84e68ccf2ab2be91e8d",
             "pre_install": "Expand-7zipArchive \"$dir\\`$PLUGINSDIR\\app-64.7z\" \"$dir\""
         }
     },
