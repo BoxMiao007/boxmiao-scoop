@@ -1,13 +1,13 @@
 {
-    "version": "2.6.0",
+    "version": "2.6.1",
     "description": "AI 原生 GPU 加速终端模拟器，集成 SSH、持久会话、分屏与 AI CLI 工作流",
     "homepage": "https://github.com/Kuddev/pebrel",
     "license": "GPL-3.0-only",
     "notes": "便携版。exe 未签名，首次运行可能触发 SmartScreen，选择「更多信息 → 仍要运行」。配置保存在 %APPDATA%\\Pebrel\\pebrel.lua，可运行 pebrel config init 生成模板。",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/Kuddev/pebrel/releases/download/v2.6.0/Pebrel-v2.6.0-windows-x64.zip",
-            "hash": "a3ff96b876f508a889119e21dada94a2ff57d07070f065c274f2bbf623139186"
+            "url": "https://github.com/Kuddev/pebrel/releases/download/v2.6.1/Pebrel-v2.6.1-windows-x64.zip",
+            "hash": "55191de815fad98fa72c7db222f20416292d8e499f33e6e2b4def020a5997417"
         }
     },
     "bin": "pebrel.exe",
