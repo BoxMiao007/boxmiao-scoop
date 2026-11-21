@@ -5,6 +5,14 @@ rem 所有参数原样转发给 PowerShell 脚本。
 rem 运行结束后按回车键关闭窗口；自动化调用时可先 set EXCAVATOR_NO_PAUSE=1 跳过等待。
 chcp 65001 >nul
 setlocal
+rem 未显式设置代理时，读取 Windows 系统代理，供 git/checkver 使用。
+if not defined HTTP_PROXY if not defined HTTPS_PROXY (
+    for /f "usebackq delims=" %%P in (`powershell.exe -NoProfile -Command "$p=Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings'; if ($p.ProxyEnable -eq 1 -and $p.ProxyServer) { $s=$p.ProxyServer; if ($s -match '=') { $s=$s -replace '^.*?https?=',''; $s=$s -replace ';.*$','' }; if ($s -notmatch '^[a-z]+://') { $s='http://'+$s }; $s }"`) do set "HTTP_PROXY=%%P"
+)
+if defined HTTP_PROXY if not defined HTTPS_PROXY set "HTTPS_PROXY=%HTTP_PROXY%"
+if defined HTTPS_PROXY if not defined HTTP_PROXY set "HTTP_PROXY=%HTTPS_PROXY%"
+if defined HTTP_PROXY set "http_proxy=%HTTP_PROXY%"
+if defined HTTPS_PROXY set "https_proxy=%HTTPS_PROXY%"
 set "SCRIPT=%~dp0scripts\excavator-local.ps1"
 set "CODE=1"
 
