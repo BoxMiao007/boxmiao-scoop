@@ -1,13 +1,13 @@
 {
     "##": "上游不在 GitHub 发版，版本信息来自 zcode.z.ai 的更新清单接口（桌面端自己用的那个）：channel=1 稳定版、channel=3 预览版，某些版本会先在预览通道出现（如 3.17.1）。checkver 读该接口的稳定通道，不再抓会滞后的官网营销页；hash 取自版本级 latest.yml，上游只提供 sha512。",
-    "version": "3.19.1",
+    "version": "4.0.0",
     "description": "Z.ai 出品的 AI 编程助手桌面客户端",
     "homepage": "https://zcode.z.ai",
     "license": "Proprietary",
     "architecture": {
         "64bit": {
-            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.19.1/windows-x64/ZCode-3.19.1-win-x64.exe#/dl.7z",
-            "hash": "sha512:62010e8e77490ccabb86f79c16901361d75c3f047c3c360f29ead75b175fec38442707206c39a5a8c4acb292ca91de28988fb20ec97f0ac9c67e7c1be0b0003c"
+            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/4.0.0/windows-x64/ZCode-4.0.0-win-x64.exe#/dl.7z",
+            "hash": "sha512:d5d969c9caf76ca02108dd63c4946fe08b61d4d6a19a1a449089d1e7396cdd815c8c04703a0059e2c03ced7da511a639561812b301131b3bbba7a753ddf6d260"
         }
     },
     "installer": {
