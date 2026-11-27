@@ -1,6 +1,6 @@
 {
     "##": "官方仓库 pjpv/zcode-switch 停在 1.7.1；本清单跟随持续发版的 fork wjsqqj/zcode-switch（版本号形如 1.7.5-Z.EMAIL）。该 fork 重新提供单文件便携 exe，可直接安装，无需再解 NSIS 外壳。GitHub 默认 checkver 正则只取数字、点与连字符，会把 1.7.5-Z.EMAIL 截成 1.7.5-，使 autoupdate 拼出不存在的校验和地址；因此显式指定 regex 完整捕获。",
-    "version": "1.7.5-Z.EMAIL",
+    "version": "1.7.6-Z.EMAIL",
     "description": "在多个 ZCode 账号之间一键切换：额度展示、活动领取与加密导入导出",
     "homepage": "https://github.com/wjsqqj/zcode-switch",
     "license": "MIT",
@@ -11,8 +11,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/wjsqqj/zcode-switch/releases/download/v1.7.5-Z.EMAIL/zcode-switch_1.7.5-Z.EMAIL_portable.exe#/zcode-switch.exe",
-            "hash": "4bab6410606e0fdd12595a7f82051e8e15628e9645d7ba88da92512feef7f45a"
+            "url": "https://github.com/wjsqqj/zcode-switch/releases/download/v1.7.6-Z.EMAIL/zcode-switch_1.7.6-Z.EMAIL_portable.exe#/zcode-switch.exe",
+            "hash": "821604ca986ecb70bafedaf6abd06c9311b7a5adbd9920b968f9f8b6dab6b8d4"
         }
     },
     "bin": [
