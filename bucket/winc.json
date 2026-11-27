@@ -1,0 +1,41 @@
+{
+    "version": "0.1.970",
+    "description": "用 Rust 与自研渲染引擎打造的桌面编辑器：约 0.1 秒启动，打开大文件依然轻快，键入与滚动即时响应",
+    "homepage": "https://winc.si",
+    "license": "Apache-2.0",
+    "notes": "便携版，配置、最近打开的目录与未保存内容的备份保存在程序目录的 data 子目录（已由 Scoop 持久化）。升级请用 scoop update winc，避免应用内更新与 Scoop 管理的版本分离。",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/DEEIX-AI/Winc/releases/download/v0.1.970/Winc-0.1.970-windows-x64-portable.zip",
+            "hash": "335b133ef4be616df07e6e6a4b68aa4144ef9b3d99401a5c2c8b3563687c250d"
+        }
+    },
+    "bin": [
+        [
+            "winc.exe",
+            "winc",
+            "--launcher"
+        ]
+    ],
+    "shortcuts": [
+        [
+            "winc.exe",
+            "Winc"
+        ]
+    ],
+    "persist": "data",
+    "checkver": {
+        "github": "https://github.com/DEEIX-AI/Winc"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/DEEIX-AI/Winc/releases/download/v$version/Winc-$version-windows-x64-portable.zip"
+            }
+        },
+        "hash": {
+            "url": "https://github.com/DEEIX-AI/Winc/releases/download/v$version/SHA256SUMS",
+            "regex": "([a-fA-F0-9]{64})\\s+Winc-$version-windows-x64-portable\\.zip"
+        }
+    }
+}

@@ -62,6 +62,7 @@ scoop uninstall cloakbrowser
 | [NyaTerm](https://nyaterm.app) | 现代远程终端工作区，集成 SSH、Telnet、串口、SFTP、RDP/VNC 会话、隧道与内置 AI 助手 |
 | [Pebrel](https://github.com/Kuddev/pebrel) | AI 原生 GPU 加速终端模拟器，集成 SSH、持久会话、分屏与 AI CLI 工作流 |
 | [Rscoop](https://github.com/BoxMiao007/Rscoop) | Scoop 的桌面 GUI，支持系统代理自动检测；无需终端即可搜索、安装、更新和管理 Windows 软件包 |
+| [Winc](https://winc.si) | 用 Rust 与自研渲染引擎打造的桌面编辑器，约 0.1 秒启动，打开大文件依然轻快 |
 | [ZedG](https://github.com/WenYin-Community/ZedG) | Zed 编辑器的简体中文版，AI 自动翻译并重新编译，跟随上游版本更新 |
 
 ### 浏览器
